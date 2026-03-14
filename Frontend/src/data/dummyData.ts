@@ -15,6 +15,26 @@ export const muscleDistribution = [
   { name: 'Arms', value: 10, color: '#EF4444' },
 ];
 
+export const weightHistory = [
+  { date: '2024-03-08', weight: 82.5 },
+  { date: '2024-03-09', weight: 82.3 },
+  { date: '2024-03-10', weight: 82.6 },
+  { date: '2024-03-11', weight: 82.1 },
+  { date: '2024-03-12', weight: 81.8 },
+  { date: '2024-03-13', weight: 81.5 },
+  { date: '2024-03-14', weight: 81.2 },
+];
+
+export const calorieHistory = [
+  { date: 'Mar 08', calories: 2450, target: 2500 },
+  { date: 'Mar 09', calories: 2600, target: 2500 },
+  { date: 'Mar 10', calories: 2300, target: 2500 },
+  { date: 'Mar 11', calories: 2550, target: 2500 },
+  { date: 'Mar 12', calories: 2100, target: 2500 },
+  { date: 'Mar 13', calories: 2480, target: 2500 },
+  { date: 'Mar 14', calories: 2520, target: 2500 },
+];
+
 export const challenges = [
   {
     id: 'ch-1',
@@ -36,6 +56,42 @@ export const challenges = [
   },
   {
     id: 'ch-3',
+    title: '30 Days Lose Weight',
+    duration: '30 Days',
+    intensity: 'High',
+    image: 'https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400&q=80',
+    days: 30,
+    locked: false,
+  },
+  {
+    id: 'ch-4',
+    title: '14 Day Kegel Power',
+    duration: '14 Days',
+    intensity: 'Easy',
+    image: 'https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=400&q=80',
+    days: 14,
+    locked: false,
+  },
+  {
+    id: 'ch-5',
+    title: '28 Day Lowerbody',
+    duration: '28 Days',
+    intensity: 'High',
+    image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?w=400&q=80',
+    days: 28,
+    locked: true,
+  },
+  {
+    id: 'ch-6',
+    title: '30 Day Get Ripped',
+    duration: '30 Days',
+    intensity: 'Extreme',
+    image: 'https://images.unsplash.com/photo-1583454110551-21f2fa29e588?w=400&q=80',
+    days: 30,
+    locked: true,
+  },
+  {
+    id: 'ch-7',
     title: '14 Day Belly Burn',
     duration: '14 Days',
     intensity: 'Extreme',
@@ -44,7 +100,7 @@ export const challenges = [
     locked: false,
   },
   {
-    id: 'ch-4',
+    id: 'ch-8',
     title: '28 Day Calisthenics',
     duration: '28 Days',
     intensity: 'Medium',
@@ -52,6 +108,18 @@ export const challenges = [
     days: 28,
     locked: true,
   },
+];
+
+export const mmaSection = [
+  { title: 'BJJ Fundamentals', instructor: 'Rickson G.', level: 'Beginner' },
+  { title: 'Muay Thai Striking', instructor: 'Samart P.', level: 'Intermediate' },
+  { title: 'Wrestling for MMA', instructor: 'Jordan B.', level: 'Advanced' },
+];
+
+export const sportAthlete = [
+  { title: 'Explosive Sprinting', focus: 'Speed', duration: '45m' },
+  { title: 'Vertical Leap Boost', focus: 'Power', duration: '60m' },
+  { title: 'Agility Ladder pro', focus: 'Coordination', duration: '30m' },
 ];
 
 export const bodyFocus = [
