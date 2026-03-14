@@ -209,7 +209,15 @@ const ProgressView: React.FC = () => {
           <div className="chart-wrapper">
             <ResponsiveContainer width="100%" height={350}>
               <PieChart>
-                <Pie data={muscleDistribution} innerRadius={50} outerRadius={80} paddingAngle={5} dataKey="value">
+                <Pie 
+                  data={muscleDistribution} 
+                  innerRadius={50} 
+                  outerRadius={80} 
+                  paddingAngle={5} 
+                  dataKey="value"
+                  label={{ fill: '#94A3B8', fontSize: 11 }}
+                  labelLine={{ stroke: '#475569' }}
+                >
                   {muscleDistribution.map((entry, index) => <Cell key={index} fill={entry.color} />)}
                 </Pie>
                 <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />

@@ -1,41 +1,25 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Play, Lock, CheckCircle2, Zap, ArrowRight, Sword, Medal } from 'lucide-react';
-import { challenges, categorizedTraining, trendingTargets, mmaSection, sportAthlete, expertCards } from '../../data/dummyData';
-
-const ExpertCard: React.FC<{ card: any }> = ({ card }) => (
-  <div className="expert-card" style={{ background: card.color }}>
-    <div className="expert-content">
-      <div className="expert-badge">{card.type}</div>
-      <h3>{card.title}</h3>
-      <ul className="expert-features">
-        {card.features.map((f: string, i: number) => (
-          <li key={i}><div className="dot" /> {f}</li>
-        ))}
-      </ul>
-    </div>
-    <div className="expert-image-container">
-      <img src={card.image} alt={card.title} className="expert-image" />
-    </div>
-  </div>
-);
+import { 
+  ChevronLeft, ChevronRight, Play, CheckCircle2, Zap, ArrowRight, 
+  Flame, Crown, Edit2, Search, Activity, TrendingUp, Lock, Sword, Medal 
+} from 'lucide-react';
+import { 
+  challenges, categorizedTraining, trendingTargets, mmaSection, 
+  sportAthlete, trainingCategories, stretchWorkouts, popularGoals 
+} from '../../data/dummyData';
 
 const TrainingHub: React.FC = () => {
   const [selectedChallenge, setSelectedChallenge] = useState<any>(null);
   const [showOthers, setShowOthers] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(trainingCategories[1]); // Default to 'Arm'
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const weekDays = [
-    { day: 'Mon', date: 11, status: 'completed' },
-    { day: 'Tue', date: 12, status: 'completed' },
-    { day: 'Wed', date: 13, status: 'active' },
-    { day: 'Thu', date: 14, status: 'pending' },
-    { day: 'Fri', date: 15, status: 'pending' },
-    { day: 'Sat', date: 16, status: 'pending' },
-    { day: 'Sun', date: 17, status: 'pending' },
-  ];
+  const currentWeekDays = [9, 10, 11, 12, 13, 14, 15];
+  const activeDay = 14;
 
   if (selectedChallenge) {
     return (
-      <div className="challenge-detail animate-fade-in">
+      <div className="challenge-detail animate-fade-in premium-layout">
         <button onClick={() => setSelectedChallenge(null)} className="back-btn">
           <ChevronLeft size={20} />
           Back to Training
@@ -53,7 +37,7 @@ const TrainingHub: React.FC = () => {
           {Array.from({ length: selectedChallenge.days }).map((_, i) => {
             const dayNum = i + 1;
             const isRestDay = dayNum % 7 === 0;
-            const isLocked = dayNum > 1 && !isRestDay;
+            const isLocked = dayNum > 1 && !isRestDay && selectedChallenge.locked;
 
             return (
               <div key={dayNum} className={`day-card glass-card ${isLocked ? 'locked' : ''}`}>
@@ -81,7 +65,7 @@ const TrainingHub: React.FC = () => {
 
   if (showOthers) {
     return (
-      <div className="training-hub animate-fade-in">
+      <div className="training-hub animate-fade-in premium-layout">
         <button onClick={() => setShowOthers(false)} className="back-btn">
           <ChevronLeft size={20} />
           Back to Hub
@@ -122,214 +106,342 @@ const TrainingHub: React.FC = () => {
             ))}
           </div>
         </section>
-
-        <style>{`
-          .training-hub { display: flex; flex-direction: column; gap: 2.5rem; }
-          .back-btn { background: transparent; border: none; color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem; cursor: pointer; width: fit-content; }
-          .section-header { margin-bottom: 1rem; }
-          .carousel { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; }
-          .feature-card { min-width: 240px; display: flex; gap: 1rem; align-items: center; padding: 1.25rem; }
-          .hide-scrollbar::-webkit-scrollbar { display: none; }
-          .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        `}</style>
       </div>
     );
   }
 
   return (
-    <div className="training-hub animate-fade-in">
-      <section className="weekly-calendar glass-card">
-        <div className="calendar-header">
-          <h3>Weekly Goals</h3>
-          <div className="nav-arrows">
-            <ChevronLeft size={18} />
-            <ChevronRight size={18} />
+    <div className="training-hub animate-fade-in premium-layout">
+      {/* 1. Premium Header */}
+      <header className="premium-header">
+        <div className="header-title">
+          <h2>HOME WORKOUT</h2>
+          <Flame className="fire-icon icon-orange" size={26} fill="currentColor" />
+        </div>
+        <div className="pro-badge">
+          <Crown size={14} fill="currentColor" />
+          PRO+
+        </div>
+      </header>
+
+      {/* 2. Global Search */}
+      <div className="search-bar glass-card">
+        <Search size={18} className="icon-muted" />
+        <input 
+          type="text" 
+          placeholder="Search workouts, plans..." 
+          className="search-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      {/* 3. Weekly Goal tracking */}
+      <section className="weekly-goal-card glass-card">
+        <div className="wg-header">
+          <h3>Weekly Goal</h3>
+          <div className="wg-progress">
+            <span className="wg-value">0</span><span className="wg-total">/4</span>
+            <Edit2 size={14} className="icon-muted" style={{ marginLeft: '4px', cursor: 'pointer' }} />
           </div>
         </div>
-        <div className="days-strip">
-          {weekDays.map((d) => (
-            <div key={d.date} className={`day-item ${d.status}`}>
-              <span className="day-name">{d.day}</span>
-              <div className="date-circle">{d.date}</div>
+        <div className="wg-days">
+          {currentWeekDays.map((d) => (
+            <div key={d} className={`wg-day ${d === activeDay ? 'active' : ''}`}>
+              {d}
             </div>
           ))}
         </div>
       </section>
 
+      {/* 4. Challenge Carousel */}
       <section className="section">
-        <div className="section-header">
-          <h3>Challenges</h3>
-        </div>
-        <div className="carousel hide-scrollbar">
-          {challenges.map((c) => (
-            <div key={c.id} className="challenge-card glass-card">
-              <img src={c.image} alt={c.title} className="card-bg" />
-              <div className="card-overlay">
-                <div className="card-content">
-                  <h4>{c.title}</h4>
-                  <p>{c.duration} • {c.intensity}</p>
-                  <button onClick={() => setSelectedChallenge(c)} className="start-btn">
-                    {c.locked ? <Lock size={16} /> : <Play size={16} fill="currentColor" />}
-                    {c.locked ? 'Locked' : 'Start'}
-                  </button>
+        <h3>Challenge</h3>
+        <div className="challenge-carousel hide-scrollbar">
+          {challenges.slice(0, 2).map((c) => (
+            <div key={c.id} className="premium-challenge-card" style={{ background: c.id === 'ch-1' ? 'linear-gradient(135deg, #2563EB, #1D4ED8)' : 'linear-gradient(135deg, #0EA5E9, #0284C7)' }}>
+              <div className="pc-content">
+                <span className="pc-duration">{c.duration.toUpperCase()}</span>
+                <h4 className="pc-title">{c.title.toUpperCase()} CHALLENGE</h4>
+                <p className="pc-desc">Start your body-toning journey to target all muscle groups and build your dream body in 4 weeks!</p>
+                <button className="pc-start-btn" onClick={() => setSelectedChallenge(c)}>START</button>
+              </div>
+              {c.id === 'ch-1' && (
+                <div className="pc-image-wrapper">
+                  <img src="/assets/fitness_expert.png" alt="challenge model" className="pc-model-img" />
                 </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Body Focus Tabs & List */}
+      <section className="section">
+        <h3>Body Focus</h3>
+        <div className="category-tabs hide-scrollbar">
+          {trainingCategories.map((cat) => (
+            <button 
+              key={cat} 
+              className={`category-tab ${activeCategory === cat ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+        <div className="category-list">
+          {categorizedTraining.filter(t => t.category === activeCategory).map((item) => (
+            <div key={item.id} className="premium-list-card glass-card">
+              <div className="list-card-image">
+                <img src={item.image} alt={item.name} />
+              </div>
+              <div className="list-card-details">
+                <h4>{item.name}</h4>
+                <p className="list-card-meta">{item.duration} • {item.exercises} Exercises</p>
+                <div className="intensity-bolts">
+                  {[1, 2, 3].map((bolt) => (
+                    <Zap 
+                      key={bolt} 
+                      size={14} 
+                      fill="currentColor" 
+                      className={bolt <= item.intensity ? 'bolt-active' : 'bolt-inactive'} 
+                    />
+                  ))}
+                </div>
+                {item.lastTime && <span className="last-time-badge">Last time:{item.lastTime}</span>}
               </div>
             </div>
           ))}
+          {categorizedTraining.filter(t => t.category === activeCategory).length === 0 && (
+            <div className="empty-state">No specific plans found for this category yet.</div>
+          )}
         </div>
       </section>
 
-      <section className="expert-row">
-        {expertCards.map((ec: any, i: number) => (
-          <ExpertCard key={i} card={ec} />
-        ))}
+      {/* 6. Custom Workout Pills */}
+      <section className="section">
+        <div className="pill-grid">
+          <button className="filter-pill"><Activity size={16} className="icon-blue" /> Recent</button>
+          <button className="filter-pill"><TrendingUp size={16} className="icon-green" /> Stretch</button>
+          <button className="filter-pill"><Activity size={16} className="icon-blue" /> Build Muscle</button>
+          <button className="filter-pill"><CheckCircle2 size={16} className="icon-blue" /> Keep Fit</button>
+          <button className="filter-pill"><Play size={16} className="icon-blue" /> {`>`}15 mins</button>
+          <button className="filter-pill"><Zap size={16} className="icon-yellow" /> Warm-Up</button>
+        </div>
       </section>
 
-      <div className="categorized-sections">
-        {['Beginner', 'Intermediate', 'Expert'].map((difficulty) => (
-          <section key={difficulty} className="section">
-            <div className="section-header">
-              <h3>{difficulty} Training</h3>
-              <button className="text-link">View All</button>
-            </div>
-            <div className="difficulty-carousel hide-scrollbar">
-              {categorizedTraining
-                .filter(t => t.difficulty === difficulty)
-                .map((item) => (
-                  <div key={item.id} className="difficulty-card glass-card">
-                    <div className="difficulty-card-image">
-                      <img src={item.image} alt={item.name} />
-                      <div className="difficulty-card-overlay">
-                        <span className="card-duration">{item.duration}</span>
-                      </div>
-                    </div>
-                    <div className="difficulty-card-info">
-                      <h4>{item.name}</h4>
-                      <p>{item.exercises} Exercises</p>
-                      <button className="card-action-btn">
-                        <Play size={14} fill="currentColor" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </section>
-        ))}
-      </div>
-
+      {/* 7. Just For You (Trending Targets) */}
       <section className="section">
-        <h3>Just For You</h3>
+        <div className="section-header">
+          <h3>Just For You</h3>
+          <button className="text-link">More {`>`}</button>
+        </div>
         <div className="just-for-you-carousel hide-scrollbar">
           {trendingTargets.map((t, idx) => (
             <div key={idx} className="small-premium-card glass-card">
               <div className="small-card-image">
-                <img src={`/assets/mobility_training.png`} alt={t.title} />
-                <div className="small-card-overlay">
-                  <Zap size={14} className="icon-yellow" />
-                </div>
+                <img src={t.image} alt={t.title} />
               </div>
               <div className="small-card-content">
                 <h4>{t.title}</h4>
-                <p>{t.level} • {t.time}</p>
+                <p>{t.time} • {t.level}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <div className="others-section">
-        <button className="others-btn glass-btn" onClick={() => setShowOthers(true)}>
-          <span>Explore More Sessions (MMA, Sports & More)</span>
-          <ChevronRight size={20} />
-        </button>
-      </div>
+      {/* 8. Stretch & Warm Up */}
+      <section className="section">
+        <div className="section-header">
+          <h3>Stretch & Warm Up</h3>
+          <button className="text-link">More {`>`}</button>
+        </div>
+        <div className="stretch-carousel hide-scrollbar">
+          {stretchWorkouts.map((s, idx) => (
+            <div key={idx} className="stretch-card glass-card">
+              <img src={s.image} alt={s.title} className="stretch-img" />
+              <div className="stretch-overlay">
+                <h4>{s.title}</h4>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 9. Popular Goals */}
+      <section className="section">
+        <h3>Popular Goals</h3>
+        <div className="goal-tabs hide-scrollbar">
+          <button className="goal-tab">Build Muscle</button>
+          <button className="goal-tab active">Burn Fat</button>
+          <button className="goal-tab">Keep Fit</button>
+        </div>
+        <div className="popular-goals-list">
+          {popularGoals.map((g, idx) => (
+            <div key={idx} className="popular-goal-card glass-card">
+               <div className="pg-image">
+                 <img src={g.image} alt={g.title} />
+               </div>
+               <div className="pg-content">
+                 <h4>{g.title}</h4>
+                 <p>{g.time} • {g.level}</p>
+               </div>
+               <button className="pg-action">
+                 <ArrowRight size={16} />
+               </button>
+            </div>
+          ))}
+        </div>
+        
+        <div className="explore-more-btn">
+          <button className="others-btn glass-btn" onClick={() => setShowOthers(true)}>
+            <span>Explore More Sessions (MMA, Sports)</span>
+            <ChevronRight size={20} />
+          </button>
+        </div>
+      </section>
 
       <style>{`
-        .training-hub { display: flex; flex-direction: column; gap: 2.5rem; padding-bottom: 2rem; }
-        .weekly-calendar { padding: 1.25rem; }
-        .calendar-header { display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
-        .days-strip { display: flex; justify-content: space-between; gap: 0.5rem; }
-        .day-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1; }
-        .day-name { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
-        .date-circle { 
-          width: 36px; height: 36px; border-radius: 50%; 
-          display: flex; align-items: center; justify-content: center; 
-          font-weight: 600; transition: var(--transition); background: var(--bg-surface-elevated);
-        }
-        .day-item.active .date-circle { background: var(--color-blue); color: white; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
-        .day-item.completed .date-circle { color: var(--color-green); }
-
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        /* Form factor adjustments */
+        .premium-layout { display: flex; flex-direction: column; gap: 2.5rem; padding-bottom: 2rem; max-width: 800px; margin: 0 auto; width: 100%; }
         
-        .carousel { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
+        /* Typography Scale Updates */
+        h2, h3, h4 { margin: 0; }
+        
+        /* 1. Header */
+        .premium-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: -1rem; margin-top: 1rem;}
+        .header-title { display: flex; align-items: center; gap: 0.5rem; }
+        .header-title h2 { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; text-transform: uppercase; }
+        .icon-orange { color: #EF4444; }
+        .pro-badge { display: flex; align-items: center; gap: 0.25rem; background: linear-gradient(135deg, #FDE047, #F59E0B); color: #451A03; padding: 0.35rem 0.85rem; border-radius: 20px; font-weight: 800; font-size: 0.75rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
+
+        /* 2. Global Search */
+        .search-bar { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; border-radius: 24px; background: var(--bg-surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .search-input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 0.95rem; font-family: inherit; }
+        .search-input::placeholder { color: var(--text-muted); }
+
+        /* 3. Weekly Goal */
+        .weekly-goal-card { padding: 1.5rem; border-radius: var(--radius-xl); display: flex; flex-direction: column; gap: 1.25rem; }
+        .wg-header { display: flex; justify-content: space-between; align-items: center; }
+        .wg-header h3 { font-size: 1.2rem; font-weight: 700; }
+        .wg-progress { display: flex; align-items: baseline; gap: 0.25rem; }
+        .wg-value { color: var(--color-blue); font-weight: 800; font-size: 1.5rem; line-height: 1; }
+        .wg-total { color: var(--text-secondary); font-size: 1rem; font-weight: 600; }
+        .wg-days { display: flex; justify-content: space-between; padding: 0 0.5rem; }
+        .wg-day { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1rem; color: var(--text-secondary); font-weight: 500; }
+        .wg-day.active { color: var(--color-blue); border: 2px solid var(--color-blue); font-weight: 700; background: rgba(59, 130, 246, 0.1); }
+
+        /* 4. Challenge Carousel */
+        .challenge-carousel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; }
+        .premium-challenge-card { min-width: 320px; width: 90%; scroll-snap-align: start; border-radius: 32px; padding: 2rem; position: relative; overflow: hidden; display: flex; justify-content: space-between; min-height: 260px; box-shadow: var(--shadow-md); }
+        .pc-content { display: flex; flex-direction: column; gap: 0.5rem; z-index: 2; flex: 1; }
+        .pc-duration { font-size: 0.8rem; color: rgba(255,255,255,0.9); font-weight: 600; letter-spacing: 0.5px; }
+        .pc-title { font-size: 1.8rem; font-weight: 900; color: white; line-height: 1.1; max-width: 70%; text-transform: uppercase; margin-bottom: 0.25rem; }
+        .pc-desc { font-size: 0.85rem; color: rgba(255,255,255,0.9); line-height: 1.4; max-width: 70%; margin-bottom: 1.5rem; }
+        .pc-start-btn { background: white; color: var(--color-blue); border: none; padding: 0.85rem 2.5rem; border-radius: 24px; font-weight: 800; font-size: 0.95rem; letter-spacing: 1px; width: fit-content; cursor: pointer; transition: transform 0.2s; }
+        .pc-start-btn:hover { transform: scale(1.05); }
+        .pc-image-wrapper { position: absolute; right: -30px; bottom: -20px; width: 55%; height: 120%; z-index: 1; pointer-events: none; }
+        .pc-model-img { width: 100%; height: 100%; object-fit: contain; object-position: bottom right; opacity: 0.9; }
+
+        /* 5. Body Focus Tabs & List */
+        .section h3 { margin-bottom: 1rem; font-size: 1.25rem; font-weight: 700; }
+        .category-tabs { display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 0.5rem; }
+        .category-tab { padding: 0.6rem 1.5rem; border-radius: 24px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-secondary); cursor: pointer; white-space: nowrap; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
+        .category-tab.active { background: rgba(59, 130, 246, 0.1); border-color: var(--color-blue); color: var(--color-blue); }
+
+        .category-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.25rem; }
+        .premium-list-card { display: flex; gap: 1.25rem; padding: 1.25rem; border-radius: var(--radius-lg); align-items: stretch; border: 1px solid rgba(255,255,255,0.05); }
+        .list-card-image { width: 90px; height: 90px; border-radius: 16px; overflow: hidden; flex-shrink: 0; background: var(--bg-surface-elevated); }
+        .list-card-image img { width: 100%; height: 100%; object-fit: cover; }
+        .list-card-details { display: flex; flex-direction: column; justify-content: center; gap: 0.35rem; flex: 1; }
+        .list-card-details h4 { font-size: 1.1rem; font-weight: 700; text-transform: capitalize; }
+        .list-card-meta { font-size: 0.85rem; color: var(--text-secondary); }
+        .intensity-bolts { display: flex; gap: 3px; margin: 0.25rem 0; }
+        .bolt-active { color: var(--color-blue); min-width: 14px; }
+        .bolt-inactive { color: rgba(255,255,255,0.1); }
+        .last-time-badge { font-size: 0.75rem; background: var(--bg-surface); padding: 4px 8px; border-radius: 6px; color: var(--text-muted); width: fit-content; margin-top: auto; }
+        .empty-state { padding: 2rem; text-align: center; color: var(--text-muted); background: var(--bg-surface); border-radius: var(--radius-md); font-size: 0.9rem; border: 1px dashed var(--border); }
+
+        /* 6. Custom Workout Pills */
+        .pill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .filter-pill { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; border-radius: var(--radius-md); background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-primary); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .filter-pill:hover { background: var(--bg-surface-elevated); }
+        .icon-blue { color: var(--color-blue); }
+        .icon-green { color: var(--color-green); }
+        .icon-yellow { color: var(--color-yellow); }
+
+        /* 7. Just For You Carousel */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .text-link { background: none; border: none; color: var(--color-blue); font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; }
+        
+        .just-for-you-carousel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; }
+        .small-premium-card { min-width: 250px; display: flex; gap: 1rem; align-items: center; padding: 1rem; scroll-snap-align: start; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.05); }
+        .small-card-image { width: 70px; height: 70px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+        .small-card-image img { width: 100%; height: 100%; object-fit: cover; }
+        .small-card-content { display: flex; flex-direction: column; gap: 0.35rem; }
+        .small-card-content h4 { font-size: 1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+        .small-card-content p { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* 8. Stretch & Warm Up */
+        .stretch-carousel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; }
+        .stretch-card { min-width: 260px; height: 160px; border-radius: var(--radius-xl); overflow: hidden; position: relative; scroll-snap-align: start; }
+        .stretch-img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-xl); }
+        .stretch-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 80%); display: flex; align-items: flex-end; padding: 1.25rem; }
+        .stretch-overlay h4 { color: white; font-size: 1.1rem; font-weight: 700; width: 80%; line-height: 1.3; }
+
+        /* 9. Popular Goals */
+        .goal-tabs { display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 0.5rem; }
+        .goal-tab { padding: 0.6rem 1.25rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-secondary); white-space: nowrap; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+        .goal-tab.active { border-color: var(--color-blue); color: var(--color-blue); background: rgba(59, 130, 246, 0.1); }
+
+        .popular-goals-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.25rem; }
+        .popular-goal-card { display: flex; gap: 1.25rem; padding: 1rem; border-radius: var(--radius-lg); align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        .pg-image { width: 70px; height: 70px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+        .pg-image img { width: 100%; height: 100%; object-fit: cover; }
+        .pg-content { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
+        .pg-content h4 { font-size: 1.05rem; font-weight: 700; }
+        .pg-content p { font-size: 0.85rem; color: var(--text-secondary); }
+        .pg-action { width: 32px; height: 32px; border-radius: 50%; background: var(--text-primary); color: var(--bg-base); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; }
+        .pg-action:hover { transform: translateX(2px); }
+
+        .explore-more-btn { margin-top: 2rem; }
+        .others-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-radius: var(--radius-lg); background: var(--bg-surface-elevated); border: 1px solid var(--border); color: var(--text-primary); font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .others-btn:hover { background: var(--bg-surface); }
+
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        .challenge-card { min-width: 280px; height: 180px; padding: 0; position: relative; overflow: hidden; border-radius: var(--radius-lg); }
-        .card-bg { width: 100%; height: 100%; object-fit: cover; }
-        .card-overlay { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); display: flex; align-items: flex-end; padding: 1.25rem; }
-        
-        .expert-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-        .expert-card { 
-          height: 280px; border-radius: var(--radius-xl); position: relative; 
-          overflow: hidden; display: flex; padding: 2rem; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .expert-content { flex: 1; z-index: 2; position: relative; display: flex; flex-direction: column; gap: 1rem; color: white; }
-        .expert-badge { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .expert-content h3 { font-size: 1.75rem; line-height: 1.2; font-weight: 800; }
-        .expert-features { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
-        .expert-features li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; opacity: 0.9; line-height: 1.4; }
-        .expert-features .dot { width: 6px; height: 6px; border-radius: 50%; background: white; flex-shrink: 0; }
-        .expert-image-container { position: absolute; right: -20px; bottom: 0; width: 60%; height: 90%; z-index: 1; pointer-events: none; }
-        .expert-image { width: 100%; height: 100%; object-fit: contain; object-position: bottom right; }
-        .categorized-sections { display: flex; flex-direction: column; gap: 2rem; }
-        .difficulty-carousel, .just-for-you-carousel { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; }
-        
-        .difficulty-card { 
-          min-width: 240px; padding: 0; overflow: hidden; border-radius: var(--radius-lg);
-          scroll-snap-align: start; transition: var(--transition);
-        }
-        .difficulty-card:hover { transform: translateY(-4px); border-color: var(--color-blue); }
-        .difficulty-card-image { position: relative; height: 140px; }
-        .difficulty-card-image img { width: 100%; height: 100%; object-fit: cover; }
-        .difficulty-card-overlay { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); display: flex; align-items: flex-end; padding: 0.75rem; }
-        .card-duration { font-size: 0.7rem; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
-        
-        .difficulty-card-info { padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
-        .difficulty-card-info h4 { font-size: 1rem; margin-bottom: 2px; }
-        .difficulty-card-info p { font-size: 0.75rem; color: var(--text-secondary); }
-        .card-action-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--color-blue); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-
-        .small-premium-card { min-width: 200px; display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem; scroll-snap-align: start; }
-        .small-card-image { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; position: relative; flex-shrink: 0; }
-        .small-card-image img { width: 100%; height: 100%; object-fit: cover; }
-        .small-card-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; }
-        .small-card-content h4 { font-size: 0.9rem; margin-bottom: 2px; }
-        .small-card-content p { font-size: 0.7rem; color: var(--text-secondary); }
-
-        .others-section { margin-top: 1rem; }
-        .others-btn { width: 100%; justify-content: space-between; padding: 1.5rem; border-radius: var(--radius-lg); background: var(--bg-surface-elevated); }
-
-        .discover-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-        .discover-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; }
-
-        /* Challenge Detail */
-        .challenge-detail { display: flex; flex-direction: column; gap: 2rem; }
-        .back-btn { background: transparent; border: none; color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
-        .challenge-hero { height: 250px; display: flex; flex-direction: column; justify-content: flex-end; gap: 1rem; padding: 2rem; border-radius: var(--radius-xl); }
-        .challenge-hero h2 { font-size: 2.5rem; }
+        /* Subpage styling (MMA/Challenge) */
+        .back-btn { background: transparent; border: none; color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem; cursor: pointer; width: fit-content; font-weight: 600; margin-bottom: 1rem; }
+        .challenge-detail { padding-top: 1rem; }
+        .challenge-hero { height: 280px; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.25rem; padding: 2.5rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md); margin-bottom: 2rem; }
+        .challenge-hero h2 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin: 0; text-transform: uppercase; }
         .tags { display: flex; gap: 0.75rem; }
-        .tag { padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; }
+        .tag { padding: 0.35rem 1rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; }
         .tag.green { background: rgba(74, 222, 128, 0.2); color: var(--color-green); }
         .tag.orange { background: rgba(251, 146, 60, 0.2); color: var(--color-orange); }
-
-        .days-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
-        .day-card { display: flex; justify-content: space-between; align-items: center; }
-        .day-card.locked { opacity: 0.5; }
+        .days-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+        .day-card { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); transition: transform 0.2s; }
+        .day-card:not(.locked):hover { transform: translateY(-4px); border-color: var(--color-blue); }
+        .day-card.locked { opacity: 0.5; filter: grayscale(1); }
+        .day-info { display: flex; flex-direction: column; gap: 0.25rem; }
+        .day-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; }
+        .day-title { font-size: 1.1rem; font-weight: 700; margin: 0; }
+        .start-session-btn { display: flex; align-items: center; gap: 0.5rem; background: var(--color-blue); color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
         
-        @media (max-width: 1024px) { 
-          .expert-row { grid-template-columns: 1fr; }
-          .training-grid { grid-template-columns: 1fr; } 
+        .carousel { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; }
+        .feature-card { min-width: 260px; display: flex; gap: 1.25rem; align-items: center; padding: 1.5rem; scroll-snap-align: start; border-radius: var(--radius-lg); }
+        .card-info h4 { margin: 0 0 0.25rem 0; font-size: 1.1rem; font-weight: 700; }
+        .card-info p { margin: 0 0 0.5rem 0; font-size: 0.85rem; color: var(--text-secondary); }
+        .tag-outline { font-size: 0.75rem; border: 1px solid var(--text-muted); padding: 2px 8px; border-radius: 12px; color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+          .pill-grid { grid-template-columns: repeat(2, 1fr); }
+          .premium-challenge-card { min-height: 220px; padding: 1.5rem; }
+          .pc-title { font-size: 1.5rem; }
+          .pc-image-wrapper { width: 60%; }
         }
       `}</style>
     </div>
@@ -337,3 +449,4 @@ const TrainingHub: React.FC = () => {
 };
 
 export default TrainingHub;
+
