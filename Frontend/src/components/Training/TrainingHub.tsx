@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Play, Lock, CheckCircle2, Dumbbell, Zap, ArrowRight, Sword, Medal } from 'lucide-react';
-import { challenges, bodyFocus, trendingTargets, mmaSection, sportAthlete, expertCards } from '../../data/dummyData';
+import { ChevronLeft, ChevronRight, Play, Lock, CheckCircle2, Zap, ArrowRight, Sword, Medal } from 'lucide-react';
+import { challenges, categorizedTraining, trendingTargets, mmaSection, sportAthlete, expertCards } from '../../data/dummyData';
 
 const ExpertCard: React.FC<{ card: any }> = ({ card }) => (
   <div className="expert-card" style={{ background: card.color }}>
@@ -185,43 +185,57 @@ const TrainingHub: React.FC = () => {
         ))}
       </section>
 
-      <div className="training-grid">
-        <section className="section">
-          <h3>Body Focus</h3>
-          <div className="focus-grid">
-            {bodyFocus.map((f) => (
-              <div key={f.name} className={`focus-card-expert ${f.color}`}>
-                <div className="focus-header">
-                  <div className="focus-icon-circle">
-                    <Dumbbell size={18} />
+      <div className="categorized-sections">
+        {['Beginner', 'Intermediate', 'Expert'].map((difficulty) => (
+          <section key={difficulty} className="section">
+            <div className="section-header">
+              <h3>{difficulty} Training</h3>
+              <button className="text-link">View All</button>
+            </div>
+            <div className="difficulty-carousel hide-scrollbar">
+              {categorizedTraining
+                .filter(t => t.difficulty === difficulty)
+                .map((item) => (
+                  <div key={item.id} className="difficulty-card glass-card">
+                    <div className="difficulty-card-image">
+                      <img src={item.image} alt={item.name} />
+                      <div className="difficulty-card-overlay">
+                        <span className="card-duration">{item.duration}</span>
+                      </div>
+                    </div>
+                    <div className="difficulty-card-info">
+                      <h4>{item.name}</h4>
+                      <p>{item.exercises} Exercises</p>
+                      <button className="card-action-btn">
+                        <Play size={14} fill="currentColor" />
+                      </button>
+                    </div>
                   </div>
-                  <span className="focus-title">{f.name}</span>
-                </div>
-                <p className="focus-desc">Targeted training for {f.name.toLowerCase()} strength.</p>
-                <div className="focus-footer">
-                  <span className="exercise-count">12 Exercises</span>
-                  <ArrowRight size={14} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="section">
-          <h3>Just For You</h3>
-          <div className="discover-list">
-            {trendingTargets.map((t) => (
-              <div key={t.title} className="discover-item glass-card">
-                <div>
-                  <h4>{t.title}</h4>
-                  <p>{t.time} • {t.level}</p>
-                </div>
-                <Zap size={20} className="icon-yellow" />
-              </div>
-            ))}
-          </div>
-        </section>
+                ))}
+            </div>
+          </section>
+        ))}
       </div>
+
+      <section className="section">
+        <h3>Just For You</h3>
+        <div className="just-for-you-carousel hide-scrollbar">
+          {trendingTargets.map((t, idx) => (
+            <div key={idx} className="small-premium-card glass-card">
+              <div className="small-card-image">
+                <img src={`/assets/mobility_training.png`} alt={t.title} />
+                <div className="small-card-overlay">
+                  <Zap size={14} className="icon-yellow" />
+                </div>
+              </div>
+              <div className="small-card-content">
+                <h4>{t.title}</h4>
+                <p>{t.level} • {t.time}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <div className="others-section">
         <button className="others-btn glass-btn" onClick={() => setShowOthers(true)}>
@@ -268,21 +282,30 @@ const TrainingHub: React.FC = () => {
         .expert-features .dot { width: 6px; height: 6px; border-radius: 50%; background: white; flex-shrink: 0; }
         .expert-image-container { position: absolute; right: -20px; bottom: 0; width: 60%; height: 90%; z-index: 1; pointer-events: none; }
         .expert-image { width: 100%; height: 100%; object-fit: contain; object-position: bottom right; }
-
-        .training-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
-        .focus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 1rem; }
-        .focus-card-expert { 
-          background: var(--bg-surface); padding: 1.5rem; border-radius: var(--radius-lg);
-          display: flex; flex-direction: column; gap: 1rem; border: 1px solid var(--border);
-          transition: var(--transition);
+        .categorized-sections { display: flex; flex-direction: column; gap: 2rem; }
+        .difficulty-carousel, .just-for-you-carousel { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; }
+        
+        .difficulty-card { 
+          min-width: 240px; padding: 0; overflow: hidden; border-radius: var(--radius-lg);
+          scroll-snap-align: start; transition: var(--transition);
         }
-        .focus-card-expert:hover { transform: translateY(-4px); border-color: var(--text-muted); }
-        .focus-header { display: flex; align-items: center; gap: 1rem; }
-        .focus-icon-circle { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; }
-        .focus-title { font-weight: 700; font-size: 1.1rem; }
-        .focus-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
-        .focus-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
-        .exercise-count { font-size: 0.75rem; color: var(--text-muted); }
+        .difficulty-card:hover { transform: translateY(-4px); border-color: var(--color-blue); }
+        .difficulty-card-image { position: relative; height: 140px; }
+        .difficulty-card-image img { width: 100%; height: 100%; object-fit: cover; }
+        .difficulty-card-overlay { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); display: flex; align-items: flex-end; padding: 0.75rem; }
+        .card-duration { font-size: 0.7rem; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .difficulty-card-info { padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .difficulty-card-info h4 { font-size: 1rem; margin-bottom: 2px; }
+        .difficulty-card-info p { font-size: 0.75rem; color: var(--text-secondary); }
+        .card-action-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--color-blue); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+        .small-premium-card { min-width: 200px; display: flex; gap: 0.75rem; align-items: center; padding: 0.75rem; scroll-snap-align: start; }
+        .small-card-image { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; position: relative; flex-shrink: 0; }
+        .small-card-image img { width: 100%; height: 100%; object-fit: cover; }
+        .small-card-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; }
+        .small-card-content h4 { font-size: 0.9rem; margin-bottom: 2px; }
+        .small-card-content p { font-size: 0.7rem; color: var(--text-secondary); }
 
         .others-section { margin-top: 1rem; }
         .others-btn { width: 100%; justify-content: space-between; padding: 1.5rem; border-radius: var(--radius-lg); background: var(--bg-surface-elevated); }

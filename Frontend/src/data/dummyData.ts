@@ -24,7 +24,7 @@ export const expertCards = [
       'Homely meal plans, No fad diets',
       'Adapts to your lifestyle & budget'
     ],
-    image: 'C:/Users/naman/.gemini/antigravity/brain/ab140f29-f6d2-40a3-aae0-a1d42520769b/nutrition_expert_card_bg_1773460142912.png',
+    image: '/assets/nutrition_expert.png',
     color: 'linear-gradient(135deg, #1E293B, #0F172A)'
   },
   {
@@ -33,7 +33,7 @@ export const expertCards = [
     features: [
       '1:1 online consultations, assessment & Progressive workout plans for you'
     ],
-    image: 'C:/Users/naman/.gemini/antigravity/brain/ab140f29-f6d2-40a3-aae0-a1d42520769b/fitness_expert_card_bg_1773460161442.png',
+    image: '/assets/fitness_expert.png',
     color: 'linear-gradient(135deg, #44104d, #0F172A)'
   }
 ];
@@ -153,12 +153,25 @@ export const sportAthlete = [
   { title: 'Agility Ladder pro', focus: 'Coordination', duration: '30m' },
 ];
 
-export const bodyFocus = [
-  { name: 'Chest', icon: 'zap', color: 'blue' },
-  { name: 'Back', icon: 'activity', color: 'green' },
-  { name: 'Legs', icon: 'layers', color: 'yellow' },
-  { name: 'Abs', icon: 'target', color: 'orange' },
-  { name: 'Arms', icon: 'framer', color: 'red' },
+export const categorizedTraining = [
+  // Beginner Row
+  { id: 'b1', name: 'Abs', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '15 min', exercises: 8 },
+  { id: 'b2', name: 'Arms', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '20 min', exercises: 10 },
+  { id: 'b3', name: 'Legs', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '25 min', exercises: 12 },
+  { id: 'b4', name: 'Mobility', difficulty: 'Beginner', image: '/assets/mobility_training.png', duration: '10 min', exercises: 6 },
+  { id: 'b5', name: 'Back', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '20 min', exercises: 9 },
+  // Intermediate Row
+  { id: 'i1', name: 'Chest', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '35 min', exercises: 14 },
+  { id: 'i2', name: 'Glutes', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '30 min', exercises: 12 },
+  { id: 'i3', name: 'Full Body', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '45 min', exercises: 18 },
+  { id: 'i4', name: 'Calisthenics', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '40 min', exercises: 15 },
+  { id: 'i5', name: 'Shoulders', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '30 min', exercises: 11 },
+  // Expert Row
+  { id: 'e1', name: 'Cross Fit', difficulty: 'Expert', image: '/assets/crossfit_training.png', duration: '50 min', exercises: 22 },
+  { id: 'e2', name: 'Master Abs', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '30 min', exercises: 15 },
+  { id: 'e3', name: 'Heavy Legs', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '60 min', exercises: 20 },
+  { id: 'e4', name: 'Atlas Back', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '55 min', exercises: 19 },
+  { id: 'e5', name: 'Master Arms', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '45 min', exercises: 16 },
 ];
 
 export const popularGoals = [

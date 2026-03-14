@@ -132,6 +132,30 @@ const ProgressView: React.FC = () => {
 
         <div className="glass-card chart-container">
           <div className="chart-header">
+            <Activity size={20} className="icon-red" />
+            <h3>Performance Radar</h3>
+          </div>
+          <div className="chart-wrapper">
+            <ResponsiveContainer width="100%" height={350}>
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={performanceData}>
+                <PolarGrid stroke="#334155" />
+                <PolarAngleAxis dataKey="subject" stroke="#94A3B8" fontSize={10} />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                <Radar
+                  name="Player"
+                  dataKey="A"
+                  stroke="#3B82F6"
+                  fill="#3B82F6"
+                  fillOpacity={0.6}
+                />
+                <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
+              </RadarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="glass-card chart-container full-width">
+          <div className="chart-header">
             <Activity size={20} className="icon-blue" />
             <h3>Training Consistency</h3>
           </div>
@@ -158,37 +182,13 @@ const ProgressView: React.FC = () => {
             <h3>Muscle Distribution</h3>
           </div>
           <div className="chart-wrapper">
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={350}>
               <PieChart>
                 <Pie data={muscleDistribution} innerRadius={50} outerRadius={80} paddingAngle={5} dataKey="value">
                   {muscleDistribution.map((entry, index) => <Cell key={index} fill={entry.color} />)}
                 </Pie>
                 <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
               </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        <div className="glass-card chart-container">
-          <div className="chart-header">
-            <Activity size={20} className="icon-red" />
-            <h3>Performance Radar</h3>
-          </div>
-          <div className="chart-wrapper">
-            <ResponsiveContainer width="100%" height={200}>
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={performanceData}>
-                <PolarGrid stroke="#334155" />
-                <PolarAngleAxis dataKey="subject" stroke="#94A3B8" fontSize={10} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                <Radar
-                  name="Player"
-                  dataKey="A"
-                  stroke="#3B82F6"
-                  fill="#3B82F6"
-                  fillOpacity={0.6}
-                />
-                <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
-              </RadarChart>
             </ResponsiveContainer>
           </div>
         </div>
