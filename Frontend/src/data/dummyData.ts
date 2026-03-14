@@ -15,14 +15,45 @@ export const muscleDistribution = [
   { name: 'Arms', value: 10, color: '#EF4444' },
 ];
 
+export const expertCards = [
+  {
+    type: 'Nutrition Expert',
+    title: 'Expert Nutritionist',
+    features: [
+      'Weekly 1:1 online Nutrition consultations & plans',
+      'Homely meal plans, No fad diets',
+      'Adapts to your lifestyle & budget'
+    ],
+    image: 'C:/Users/naman/.gemini/antigravity/brain/ab140f29-f6d2-40a3-aae0-a1d42520769b/nutrition_expert_card_bg_1773460142912.png',
+    color: 'linear-gradient(135deg, #1E293B, #0F172A)'
+  },
+  {
+    type: 'Fitness Expert',
+    title: 'Expert Trainer',
+    features: [
+      '1:1 online consultations, assessment & Progressive workout plans for you'
+    ],
+    image: 'C:/Users/naman/.gemini/antigravity/brain/ab140f29-f6d2-40a3-aae0-a1d42520769b/fitness_expert_card_bg_1773460161442.png',
+    color: 'linear-gradient(135deg, #44104d, #0F172A)'
+  }
+];
+
+export const performanceData = [
+  { subject: 'Cardio', A: 85, fullMark: 100 },
+  { subject: 'Strength', A: 95, fullMark: 100 },
+  { subject: 'Endurance', A: 70, fullMark: 100 },
+  { subject: 'Consistency', A: 90, fullMark: 100 },
+  { subject: 'Full Body', A: 80, fullMark: 100 },
+];
+
 export const weightHistory = [
   { date: '2024-03-08', weight: 82.5 },
-  { date: '2024-03-09', weight: 82.3 },
-  { date: '2024-03-10', weight: 82.6 },
-  { date: '2024-03-11', weight: 82.1 },
-  { date: '2024-03-12', weight: 81.8 },
-  { date: '2024-03-13', weight: 81.5 },
-  { date: '2024-03-14', weight: 81.2 },
+  { date: '2024-03-09', weight: 81.3 },
+  { date: '2024-03-10', weight: 80.6 },
+  { date: '2024-03-11', weight: 79.1 },
+  { date: '2024-03-12', weight: 78.8 },
+  { date: '2024-03-13', weight: 78.5 },
+  { date: '2024-03-14', weight: 78.2 },
 ];
 
 export const calorieHistory = [

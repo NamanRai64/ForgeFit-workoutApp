@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  PieChart, Pie, Cell, Legend, LineChart, Line, AreaChart, Area 
+  PieChart, Pie, Cell, Legend, LineChart, Line, AreaChart, Area,
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis 
 } from 'recharts';
-import { consistencyData, muscleDistribution, weightHistory, calorieHistory } from '../../data/dummyData';
-import { Calendar, ChevronDown, Activity, Target, TrendingDown, Flame, Plus, Clock, AlertCircle } from 'lucide-react';
+import { consistencyData, muscleDistribution, weightHistory, calorieHistory, performanceData } from '../../data/dummyData';
+import { Calendar, ChevronDown, Activity, Target, TrendingDown, Flame, Plus, Clock } from 'lucide-react';
 
 const ProgressView: React.FC = () => {
-  const [timeRange, setTimeRange] = useState('30 Days');
+  const [timeRange] = useState('30 Days');
   const [showLogModal, setShowLogModal] = useState(false);
   const [logType, setLogType] = useState<'weight' | 'calories'>('weight');
-
-  const canEdit = (dateStr: string) => {
-    const recordDate = new Date(dateStr);
-    const now = new Date();
-    const diffInHours = (now.getTime() - recordDate.getTime()) / (1000 * 60 * 60);
-    return diffInHours <= 24;
-  };
 
   return (
     <div className="progress-view animate-fade-in">
@@ -77,40 +71,61 @@ const ProgressView: React.FC = () => {
       </div>
 
       <div className="charts-grid">
-        <div className="glass-card chart-container main-chart">
+        <div className="glass-card chart-container full-width">
           <div className="chart-header">
             <TrendingDown size={20} className="icon-green" />
-            <h3>Weight Trend</h3>
+            <Plus size={14} className="icon-muted" />
+            <Flame size={20} className="icon-orange" />
+            <h3>Metabolic Trends (Weight & Calories)</h3>
           </div>
-          <div className="chart-wrapper">
-            <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={weightHistory}>
+          <div className="chart-wrapper large">
+            <ResponsiveContainer width="100%" height={350}>
+              <LineChart data={calorieHistory.map((c, i) => ({ ...c, weight: weightHistory[i]?.weight }))}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="date" stroke="#94A3B8" fontSize={10} tickFormatter={(val) => val.split('-')[2]} />
-                <YAxis domain={['dataMin - 1', 'dataMax + 1']} stroke="#94A3B8" fontSize={10} />
+                <XAxis dataKey="date" stroke="#94A3B8" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis 
+                  yAxisId="left"
+                  stroke="#4ADE80" 
+                  fontSize={12} 
+                  tickLine={false} 
+                  axisLine={false} 
+                  domain={[45, 'auto']}
+                  label={{ value: 'Weight (kg)', angle: -90, position: 'insideLeft', fill: '#4ADE80', fontSize: 10 }}
+                />
+                <YAxis 
+                  yAxisId="right" 
+                  orientation="right"
+                  stroke="#FB923C" 
+                  fontSize={12} 
+                  tickLine={false} 
+                  axisLine={false} 
+                  label={{ value: 'Calories (kcal)', angle: 90, position: 'insideRight', fill: '#FB923C', fontSize: 10 }}
+                />
                 <Tooltip 
                   contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }}
                 />
-                <Line type="monotone" dataKey="weight" stroke="#4ADE80" strokeWidth={3} dot={{ fill: '#4ADE80', r: 4 }} activeDot={{ r: 6 }} />
+                <Legend verticalAlign="top" height={36}/>
+                <Line 
+                  yAxisId="left"
+                  type="monotone" 
+                  dataKey="weight" 
+                  stroke="#4ADE80" 
+                  strokeWidth={3} 
+                  dot={{ fill: '#4ADE80', r: 4 }} 
+                  activeDot={{ r: 6 }} 
+                  name="Weight (kg)"
+                />
+                <Line 
+                  yAxisId="right"
+                  type="monotone" 
+                  dataKey="calories" 
+                  stroke="#FB923C" 
+                  strokeWidth={3} 
+                  dot={{ fill: '#FB923C', r: 4 }} 
+                  activeDot={{ r: 6 }} 
+                  name="Calories (kcal)"
+                />
               </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        <div className="glass-card chart-container main-chart">
-          <div className="chart-header">
-            <Flame size={20} className="icon-orange" />
-            <h3>Daily Calories</h3>
-          </div>
-          <div className="chart-wrapper">
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={calorieHistory}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="date" stroke="#94A3B8" fontSize={10} />
-                <YAxis stroke="#94A3B8" fontSize={10} />
-                <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
-                <Bar dataKey="calories" fill="#FB923C" radius={[4, 4, 0, 0]} />
-              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -121,13 +136,17 @@ const ProgressView: React.FC = () => {
             <h3>Training Consistency</h3>
           </div>
           <div className="chart-wrapper">
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={350}>
               <BarChart data={consistencyData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                 <XAxis dataKey="name" stroke="#94A3B8" fontSize={10} />
                 <YAxis hide />
                 <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
-                <Bar dataKey="volume" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="volume" radius={[4, 4, 0, 0]}>
+                  {consistencyData.map((_entry, index) => (
+                    <Cell key={index} fill={index % 2 === 0 ? '#3B82F6' : '#4ADE80'} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -141,11 +160,35 @@ const ProgressView: React.FC = () => {
           <div className="chart-wrapper">
             <ResponsiveContainer width="100%" height={200}>
               <PieChart>
-                <Pie data={muscleDistribution} innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
+                <Pie data={muscleDistribution} innerRadius={50} outerRadius={80} paddingAngle={5} dataKey="value">
                   {muscleDistribution.map((entry, index) => <Cell key={index} fill={entry.color} />)}
                 </Pie>
                 <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
               </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="glass-card chart-container">
+          <div className="chart-header">
+            <Activity size={20} className="icon-red" />
+            <h3>Performance Radar</h3>
+          </div>
+          <div className="chart-wrapper">
+            <ResponsiveContainer width="100%" height={200}>
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={performanceData}>
+                <PolarGrid stroke="#334155" />
+                <PolarAngleAxis dataKey="subject" stroke="#94A3B8" fontSize={10} />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                <Radar
+                  name="Player"
+                  dataKey="A"
+                  stroke="#3B82F6"
+                  fill="#3B82F6"
+                  fillOpacity={0.6}
+                />
+                <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
+              </RadarChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -189,30 +232,24 @@ const ProgressView: React.FC = () => {
       <style>{`
         .progress-view { display: flex; flex-direction: column; gap: 2rem; }
         .view-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .header-actions { display: flex; gap: 1rem; }
-        .glass-btn { 
+        .header-actions { display: flex; gap: 1rem; align-items: center; }
+        .range-selector.glass {
           display: flex; align-items: center; gap: 0.5rem; 
-          padding: 0.6rem 1.25rem; border-radius: var(--radius-md); 
-          border: 1px solid var(--border); background: var(--bg-surface);
-          color: var(--text-primary); cursor: pointer; transition: var(--transition);
+          padding: 0.6rem 1rem; border-radius: var(--radius-md); 
+          background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+          color: var(--text-secondary); cursor: pointer; transition: var(--transition);
         }
-        .glass-btn.primary { background: var(--color-blue); border: none; font-weight: 600; }
-        .glass-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+        .range-selector.glass span { font-size: 0.85rem; font-weight: 500; }
         
-        .title { font-size: 1.875rem; color: var(--text-primary); }
-        .subtitle { color: var(--text-secondary); }
-        
-        .tracking-summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-        .tracking-card { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem; }
-        .card-info { display: flex; gap: 1rem; align-items: center; }
-        .label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; }
-        .trend-down { color: var(--color-green); font-size: 0.75rem; }
-        .trend-neutral { color: var(--color-orange); font-size: 0.75rem; }
-        .chart-mini { width: 100px; }
-
-        .charts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .charts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         .chart-container { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; }
-        .main-chart { grid-column: span 1; }
+        .full-width { grid-column: span 2; }
+        .chart-wrapper.large { height: 350px; }
+        
+        @media (max-width: 1280px) {
+          .charts-grid { grid-template-columns: 1fr 1fr; }
+          .full-width { grid-column: span 1; }
+        }
         
         .icon-green { color: var(--color-green); }
         .icon-orange { color: var(--color-orange); }

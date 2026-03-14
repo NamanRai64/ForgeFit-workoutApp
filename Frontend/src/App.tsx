@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Common/Sidebar';
 import Navbar from './components/Common/Navbar';
 import ProgressView from './components/Dashboard/ProgressView';
 import TrainingHub from './components/Training/TrainingHub';
+import Onboarding from './components/Common/Onboarding';
 import { BarChart3, Dumbbell, Trophy, Users, Settings } from 'lucide-react';
 
 function App() {
   const [currentView, setView] = useState('dashboard');
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    const onboarded = localStorage.getItem('forgefit_onboarded');
+    if (!onboarded) {
+      setShowOnboarding(true);
+    }
+  }, []);
 
   const renderView = () => {
     switch (currentView) {
@@ -26,6 +35,8 @@ function App() {
 
   return (
     <div className="app-container">
+      {showOnboarding && <Onboarding onComplete={() => setShowOnboarding(false)} />}
+      
       <Sidebar currentView={currentView} setView={setView} />
       
       <div className="main-wrapper">
