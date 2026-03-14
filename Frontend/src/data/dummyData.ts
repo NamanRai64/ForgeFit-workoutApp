@@ -118,6 +118,55 @@ export const trendingTargets = [
   { title: '7 Min HIIT Fat Burning', time: '7m', level: 'Beginner', image: '/assets/beginner_training.png' },
 ];
 
+export const leaderboardData = [
+  { id: '1', rank: 1, name: 'Sarah Connor', score: 3450, avatar: 'https://i.pravatar.cc/150?u=sarah', trend: 'up', isUser: false },
+  { id: '2', rank: 2, name: 'Alex Athlete', score: 3120, avatar: 'https://i.pravatar.cc/150?u=alex', trend: 'same', isUser: true },
+  { id: '3', rank: 3, name: 'Marcus D.', score: 2980, avatar: 'https://i.pravatar.cc/150?u=marcus', trend: 'up', isUser: false },
+  { id: '4', rank: 4, name: 'Elena R.', score: 2850, avatar: 'https://i.pravatar.cc/150?u=elena', trend: 'down', isUser: false },
+  { id: '5', rank: 5, name: 'David Kim', score: 2700, avatar: 'https://i.pravatar.cc/150?u=david', trend: 'same', isUser: false }
+];
+
+export const activityFeedData = [
+  { 
+    id: 'act1', 
+    user: 'Sarah Connor', 
+    avatar: 'https://i.pravatar.cc/150?u=sarah', 
+    action: 'completed', 
+    target: 'Killer Core HIIT', 
+    timeAgo: '2h ago', 
+    likes: 12, 
+    comments: 3,
+    type: 'workout'
+  },
+  { 
+    id: 'act2', 
+    user: 'Marcus D.', 
+    avatar: 'https://i.pravatar.cc/150?u=marcus', 
+    action: 'unlocked an achievement', 
+    target: '7-Day Streak', 
+    timeAgo: '5h ago', 
+    likes: 24, 
+    comments: 5,
+    type: 'achievement'
+  },
+  { 
+    id: 'act3', 
+    user: 'Elena R.', 
+    avatar: 'https://i.pravatar.cc/150?u=elena', 
+    action: 'started a new challenge', 
+    target: '30 Day Six Pack', 
+    timeAgo: '1d ago', 
+    likes: 8, 
+    comments: 1,
+    type: 'challenge'
+  }
+];
+
+export const teamChallengesData = [
+  { id: 'tc1', title: '1 Million Pushups in May', progress: 450000, target: 1000000, daysLeft: 14, participants: 12450 },
+  { id: 'tc2', title: 'Global 5K Run Challenge', progress: 12000, target: 50000, daysLeft: 5, participants: 8300 }
+];
+
 export const stretchWorkouts = [
   { title: 'Back Stretching 7 Min', duration: '7 min', image: '/assets/mobility_training.png' },
   { title: 'Upper Body Stretching', duration: '12 min', image: '/assets/mobility_training.png' },

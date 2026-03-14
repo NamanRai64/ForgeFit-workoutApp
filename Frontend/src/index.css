@@ -39,6 +39,33 @@
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.light-theme {
+  --bg-main: #F1F5F9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #E2E8F0;
+  
+  --color-green: #22C55E;
+  --color-yellow: #EAB308;
+  --color-red: #EF4444;
+  --color-orange: #F97316;
+  --color-blue: #2563EB;
+  --color-indigo: #4F46E5;
+  --color-purple: #9333EA;
+  
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  
+  --border: #CBD5E1;
+  --border-focus: #2563EB;
+  
+  /* Update glassmorphism effects for light theme */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-card-bg: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-border-hover: rgba(0, 0, 0, 0.15);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -92,24 +119,24 @@ h1, h2, h3, h4 {
 
 /* Glassmorphism Classes */
 .glass {
-  background: rgba(30, 41, 59, 0.7);
+  background: var(--glass-bg, rgba(30, 41, 59, 0.7));
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
 }
 
 .glass-card {
-  background: rgba(30, 41, 59, 0.5);
+  background: var(--glass-card-bg, rgba(30, 41, 59, 0.5));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   transition: var(--transition);
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--glass-border-hover, rgba(255, 255, 255, 0.15));
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
