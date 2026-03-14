@@ -3,6 +3,8 @@ import Sidebar from './components/Common/Sidebar';
 import Navbar from './components/Common/Navbar';
 import ProgressView from './components/Dashboard/ProgressView';
 import TrainingHub from './components/Training/TrainingHub';
+import SettingsView from './components/Settings/SettingsView';
+import CommunityHub from './components/Community/CommunityHub';
 import Onboarding from './components/Common/Onboarding';
 import { BarChart3, Dumbbell, Trophy, Users, Settings } from 'lucide-react';
 
@@ -10,10 +12,15 @@ function App() {
   const [currentView, setView] = useState('dashboard');
   const [showOnboarding, setShowOnboarding] = useState(false);
 
+  // Apply theme on initial load if saved
   useEffect(() => {
     const onboarded = localStorage.getItem('forgefit_onboarded');
     if (!onboarded) {
       setShowOnboarding(true);
+    }
+    const savedTheme = localStorage.getItem('forgefit_theme');
+    if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-theme');
     }
   }, []);
 
@@ -23,6 +30,10 @@ function App() {
         return <ProgressView />;
       case 'training':
         return <TrainingHub />;
+      case 'community':
+        return <CommunityHub />;
+      case 'settings':
+        return <SettingsView />;
       default:
         return (
           <div className="placeholder-view glass-card">
