@@ -102,14 +102,30 @@ export const sportAthlete = [
 export const trainingCategories = ['Abs', 'Arm', 'Chest', 'Leg', 'Shoulder'];
 
 export const categorizedTraining = [
-  // Arm
-  { id: 'arm-b', name: 'Arm Beginner', category: 'Arm', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '16 mins', exercises: 19, intensity: 1, lastTime: 'Feb 18, 2025' },
-  { id: 'arm-i', name: 'Arm Intermediate', category: 'Arm', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '22 mins', exercises: 25, intensity: 2, lastTime: 'Feb 10, 2025' },
-  { id: 'arm-a', name: 'Arm Advanced', category: 'Arm', difficulty: 'Advanced', image: '/assets/expert_training.png', duration: '30 mins', exercises: 28, intensity: 3, lastTime: 'Feb 05, 2025' },
   // Abs
   { id: 'abs-b', name: 'Abs Beginner', category: 'Abs', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '15 mins', exercises: 12, intensity: 1, lastTime: 'Feb 15, 2025' },
+  { id: 'abs-i', name: 'Abs Intermediate', category: 'Abs', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '20 mins', exercises: 16, intensity: 2, lastTime: 'Feb 10, 2025' },
+  { id: 'abs-e', name: 'Abs Expert', category: 'Abs', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '30 mins', exercises: 22, intensity: 3, lastTime: 'Jan 28, 2025' },
+  
+  // Arm
+  { id: 'arm-b', name: 'Arm Beginner', category: 'Arm', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '16 mins', exercises: 14, intensity: 1, lastTime: 'Feb 18, 2025' },
+  { id: 'arm-i', name: 'Arm Intermediate', category: 'Arm', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '22 mins', exercises: 20, intensity: 2, lastTime: 'Feb 12, 2025' },
+  { id: 'arm-e', name: 'Arm Expert', category: 'Arm', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '35 mins', exercises: 28, intensity: 3, lastTime: 'Feb 05, 2025' },
+
   // Chest
-  { id: 'chest-b', name: 'Chest Beginner', category: 'Chest', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '20 mins', exercises: 15, intensity: 1, lastTime: 'Feb 12, 2025' },
+  { id: 'chest-b', name: 'Chest Beginner', category: 'Chest', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '18 mins', exercises: 15, intensity: 1, lastTime: 'Feb 20, 2025' },
+  { id: 'chest-i', name: 'Chest Intermediate', category: 'Chest', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '25 mins', exercises: 22, intensity: 2, lastTime: 'Jan 15, 2025' },
+  { id: 'chest-e', name: 'Chest Expert', category: 'Chest', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '40 mins', exercises: 30, intensity: 3, lastTime: 'Dec 10, 2024' },
+
+  // Leg
+  { id: 'leg-b', name: 'Leg Beginner', category: 'Leg', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '20 mins', exercises: 16, intensity: 1, lastTime: 'Feb 22, 2025' },
+  { id: 'leg-i', name: 'Leg Intermediate', category: 'Leg', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '30 mins', exercises: 24, intensity: 2, lastTime: 'Feb 02, 2025' },
+  { id: 'leg-e', name: 'Leg Expert', category: 'Leg', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '45 mins', exercises: 35, intensity: 3, lastTime: 'Nov 05, 2024' },
+
+  // Shoulder
+  { id: 'shoulder-b', name: 'Shoulder Beginner', category: 'Shoulder', difficulty: 'Beginner', image: '/assets/beginner_training.png', duration: '15 mins', exercises: 12, intensity: 1, lastTime: 'Feb 25, 2025' },
+  { id: 'shoulder-i', name: 'Shoulder Intermediate', category: 'Shoulder', difficulty: 'Intermediate', image: '/assets/intermediate_training.png', duration: '22 mins', exercises: 18, intensity: 2, lastTime: 'Jan 20, 2025' },
+  { id: 'shoulder-e', name: 'Shoulder Expert', category: 'Shoulder', difficulty: 'Expert', image: '/assets/expert_training.png', duration: '35 mins', exercises: 25, intensity: 3, lastTime: 'Oct 12, 2024' },
 ];
 
 export const trendingTargets = [
