@@ -12,6 +12,31 @@ const ProgressView: React.FC = () => {
   const [showLogModal, setShowLogModal] = useState(false);
   const [logType, setLogType] = useState<'weight' | 'calories'>('weight');
 
+  const getColorForVolume = (volume: number) => {
+    const min = 4500;
+    const max = 7200;
+    
+    // Normalize volume to [0, 1]
+    const t = Math.max(0, Math.min(1, (volume - min) / (max - min)));
+    
+    // Interpolate Sky Blue (#60A5FA) -> Indigo (#6366F1) -> Red (#EF4444)
+    if (t < 0.5) {
+      // Interpolate Blue to Indigo
+      const innerT = t * 2;
+      const r = Math.round(96 + (99 - 96) * innerT);
+      const g = Math.round(165 + (102 - 165) * innerT);
+      const b = Math.round(250 + (241 - 250) * innerT);
+      return `rgb(${r}, ${g}, ${b})`;
+    } else {
+      // Interpolate Indigo to Red
+      const innerT = (t - 0.5) * 2;
+      const r = Math.round(99 + (239 - 99) * innerT);
+      const g = Math.round(102 + (68 - 102) * innerT);
+      const b = Math.round(241 + (68 - 241) * innerT);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+  };
+
   return (
     <div className="progress-view animate-fade-in">
       <header className="view-header">
@@ -167,8 +192,8 @@ const ProgressView: React.FC = () => {
                 <YAxis hide />
                 <Tooltip contentStyle={{ background: '#1E293B', border: '1px solid #334155', borderRadius: '8px' }} />
                 <Bar dataKey="volume" radius={[4, 4, 0, 0]}>
-                  {consistencyData.map((_entry, index) => (
-                    <Cell key={index} fill={index % 2 === 0 ? '#3B82F6' : '#4ADE80'} />
+                  {consistencyData.map((entry, index) => (
+                    <Cell key={index} fill={getColorForVolume(entry.volume)} />
                   ))}
                 </Bar>
               </BarChart>
