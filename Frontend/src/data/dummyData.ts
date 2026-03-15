@@ -84,19 +84,37 @@ export const challenges = [
     image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80',
     days: 28,
     locked: false,
+  },
+  {
+    id: 'ch-3',
+    title: 'Boxing Course',
+    duration: '30 Days',
+    intensity: 'High',
+    image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=400&q=80',
+    days: 30,
+    locked: false,
+  },
+  {
+    id: 'ch-4',
+    title: 'Marathon',
+    duration: '12 Weeks',
+    intensity: 'Extreme',
+    image: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&q=80',
+    days: 84,
+    locked: false,
   }
 ];
 
 export const mmaSection = [
-  { title: 'BJJ Fundamentals', instructor: 'Rickson G.', level: 'Beginner' },
-  { title: 'Muay Thai Striking', instructor: 'Samart P.', level: 'Intermediate' },
-  { title: 'Wrestling for MMA', instructor: 'Jordan B.', level: 'Advanced' },
+  { title: 'BJJ Fundamentals', instructor: 'Rickson G.', level: 'Beginner', image: 'https://images.unsplash.com/photo-1555597673-b21d5c935865?w=400&q=80', color: 'linear-gradient(135deg, rgba(220, 38, 38, 0.8), rgba(153, 27, 27, 0.9))' },
+  { title: 'Muay Thai Striking', instructor: 'Samart P.', level: 'Intermediate', image: 'https://images.unsplash.com/photo-1599552375620-1e5630d7b219?w=400&q=80', color: 'linear-gradient(135deg, rgba(234, 88, 12, 0.8), rgba(194, 65, 12, 0.9))' },
+  { title: 'Wrestling for MMA', instructor: 'Jordan B.', level: 'Advanced', image: 'https://images.unsplash.com/photo-1614088921102-181827b5e43a?w=400&q=80', color: 'linear-gradient(135deg, rgba(79, 70, 229, 0.8), rgba(55, 48, 163, 0.9))' },
 ];
 
 export const sportAthlete = [
-  { title: 'Explosive Sprinting', focus: 'Speed', duration: '45m' },
-  { title: 'Vertical Leap Boost', focus: 'Power', duration: '60m' },
-  { title: 'Agility Ladder pro', focus: 'Coordination', duration: '30m' },
+  { title: 'Explosive Sprinting', focus: 'Speed', duration: '45m', image: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=400&q=80', color: 'linear-gradient(135deg, rgba(202, 138, 4, 0.8), rgba(161, 98, 7, 0.9))' },
+  { title: 'Vertical Leap Boost', focus: 'Power', duration: '60m', image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&q=80', color: 'linear-gradient(135deg, rgba(14, 165, 233, 0.8), rgba(3, 105, 161, 0.9))' },
+  { title: 'Agility Ladder pro', focus: 'Coordination', duration: '30m', image: 'https://images.unsplash.com/photo-1581009137142-f8d2cc6af6c0?w=400&q=80', color: 'linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(4, 120, 87, 0.9))' },
 ];
 
 export const trainingCategories = ['Abs', 'Arm', 'Chest', 'Leg', 'Shoulder'];
@@ -193,3 +211,67 @@ export const popularGoals = [
   { title: 'Get Rid of Armpit Fat', time: '6 min', level: 'Beginner', image: '/assets/beginner_training.png', category: 'Burn Fat' },
   { title: 'Build Massive Chest', time: '25 min', level: 'Intermediate', image: '/assets/intermediate_training.png', category: 'Build Muscle' },
 ];
+
+export const workoutPlanDetails: Record<string, any> = {
+  'abs-b': {
+    id: 'abs-b',
+    title: 'Abs Beginner',
+    duration: '4 Weeks',
+    difficulty: 'Beginner',
+    image: '/assets/beginner_training.png',
+    weeks: [
+      {
+        weekNumber: 1,
+        days: [
+          {
+            dayNumber: 1,
+            title: 'Core Foundation',
+            exercises: [
+              { name: 'Jumping Jacks', sets: 1, reps: '30s', gif: 'https://i.pinimg.com/originals/23/e4/20/23e420b92e078a0f5df7decc7fb892cf.gif' },
+              { name: 'Abdominal Crunches', sets: 3, reps: '15', gif: 'https://i.pinimg.com/originals/8c/81/25/8c81255af6e341bfff8fd7ad9bed35ce.gif' },
+              { name: 'Plank', sets: 3, reps: '30s', gif: 'https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/plank-1457045133.gif' },
+              { name: 'Mountain Climber', sets: 3, reps: '20', gif: 'https://i.pinimg.com/originals/18/27/be/1827be178c019bce4b64ed16ff858a75.gif' }
+            ]
+          },
+          {
+            dayNumber: 2,
+            title: 'Lower Abs Focus',
+            exercises: [
+              { name: 'High Stepping', sets: 1, reps: '30s', gif: 'https://i.pinimg.com/originals/5c/d9/3c/5cd93c99df3d85ee196ece7b4d13ba58.gif' },
+              { name: 'Leg Raises', sets: 3, reps: '12', gif: 'https://i.pinimg.com/originals/44/2c/3e/442c3e1e915474fedd3b036bebd4800b.gif' },
+              { name: 'Flutter Kicks', sets: 3, reps: '20', gif: 'https://i.pinimg.com/originals/c9/bd/28/c9bd284fbf35c24abf04ea2aaee1c181.gif' },
+              { name: 'Cobra Stretch', sets: 1, reps: '30s', gif: 'https://i.pinimg.com/originals/10/a5/d8/10a5d8f6cc79e7bbbb42010882e3b2e5.gif' }
+            ]
+          },
+          {
+            dayNumber: 3,
+            title: 'Rest Day',
+            isRestDay: true
+          },
+          {
+            dayNumber: 4,
+            title: 'Oblique Burn',
+            exercises: [
+              { name: 'Russian Twist', sets: 3, reps: '20', gif: 'https://i.pinimg.com/originals/87/40/64/8740643775eaedbd9ee3da13eb61dbd7.gif' },
+              { name: 'Heel Touch', sets: 3, reps: '20', gif: 'https://i.pinimg.com/originals/6c/fb/b0/6cfbb02446f2549aae28ad2a7ab2c103.gif' },
+              { name: 'Side Plank', sets: 3, reps: '30s (each side)', gif: 'https://i.pinimg.com/originals/ce/dd/a1/cedda174ab798eb4903cc3adff3bdfd8.gif' }
+            ]
+          }
+        ]
+      },
+      {
+        weekNumber: 2,
+        days: [
+          {
+            dayNumber: 8,
+            title: 'Core Stability',
+            exercises: [
+              { name: 'Plank', sets: 3, reps: '45s', gif: 'https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/plank-1457045133.gif' },
+              { name: 'Bird Dog', sets: 3, reps: '10 (each side)', gif: 'https://i.pinimg.com/originals/dc/8e/3c/dc8e3cf34015f8d95155f9f60f4e1d50.gif' }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+};

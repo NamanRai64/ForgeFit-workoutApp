@@ -1,0 +1,168 @@
+/* Form factor adjustments */
+.premium-layout { display: flex; flex-direction: column; gap: 2.5rem; padding-bottom: 2rem; max-width: 800px; margin: 0 auto; width: 100%; }
+
+/* Typography Scale Updates */
+.training-hub h2, .training-hub h3, .training-hub h4, .challenge-detail h2, .challenge-detail h3, .challenge-detail h4 { margin: 0; }
+
+/* 1. Header */
+.premium-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: -1rem; margin-top: 1rem;}
+.header-title { display: flex; align-items: center; gap: 0.5rem; }
+.header-title h2 { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; text-transform: uppercase; }
+.icon-orange { color: #EF4444; }
+.pro-badge { display: flex; align-items: center; gap: 0.25rem; background: linear-gradient(135deg, #FDE047, #F59E0B); color: #451A03; padding: 0.35rem 0.85rem; border-radius: 20px; font-weight: 800; font-size: 0.75rem; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
+
+/* 2. Global Search */
+.search-bar { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; border-radius: 24px; background: var(--bg-surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.search-input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 0.95rem; font-family: inherit; }
+.search-input::placeholder { color: var(--text-muted); }
+
+/* 3. Weekly Goal */
+.weekly-goal-card { 
+  padding: 1.5rem; 
+  border-radius: var(--radius-xl); 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1.25rem; 
+}
+.wg-header { display: flex; justify-content: space-between; align-items: center; }
+.wg-header h3 { font-size: 1.2rem; font-weight: 700; }
+.wg-progress { display: flex; align-items: baseline; gap: 0.25rem; }
+.wg-value { color: var(--color-blue); font-weight: 800; font-size: 1.5rem; line-height: 1; }
+.wg-total { color: var(--text-secondary); font-size: 1rem; font-weight: 600; }
+.wg-days { 
+  display: flex; 
+  justify-content: space-between; 
+  background: var(--bg-surface-elevated); 
+  padding: 1rem; 
+  border-radius: var(--radius-lg); 
+}
+.wg-day { 
+  width: 40px; 
+  height: 40px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  border-radius: var(--radius-md); 
+  font-size: 1rem; 
+  color: var(--text-secondary); 
+  font-weight: 600; 
+  transition: var(--transition);
+}
+.wg-day.active { 
+  color: white; 
+  background: var(--color-blue); 
+  border: none;
+  font-weight: 800; 
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* 4. Challenge Carousel */
+.challenge-carousel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; }
+.premium-challenge-card { min-width: 320px; width: 90%; scroll-snap-align: start; border-radius: 32px; padding: 2rem; position: relative; overflow: hidden; display: flex; justify-content: space-between; min-height: 260px; box-shadow: var(--shadow-md); }
+.pc-content { display: flex; flex-direction: column; gap: 0.5rem; z-index: 2; flex: 1; }
+.pc-duration { font-size: 0.8rem; color: rgba(255,255,255,0.9); font-weight: 600; letter-spacing: 0.5px; }
+.pc-title { font-size: 1.8rem; font-weight: 900; color: white; line-height: 1.1; max-width: 70%; text-transform: uppercase; margin-bottom: 0.25rem; }
+.pc-desc { font-size: 0.85rem; color: rgba(255,255,255,0.9); line-height: 1.4; max-width: 70%; margin-bottom: 1.5rem; }
+.pc-start-btn { background: white; color: var(--color-blue); border: none; padding: 0.85rem 2.5rem; border-radius: 24px; font-weight: 800; font-size: 0.95rem; letter-spacing: 1px; width: fit-content; cursor: pointer; transition: transform 0.2s; }
+.pc-start-btn:hover { transform: scale(1.05); }
+.pc-image-wrapper { position: absolute; right: -30px; bottom: -20px; width: 55%; height: 120%; z-index: 1; pointer-events: none; }
+.pc-model-img { width: 100%; height: 100%; object-fit: contain; object-position: bottom right; opacity: 0.9; }
+
+/* 5. Body Focus Tabs & List */
+.section h3 { margin-bottom: 1rem; font-size: 1.25rem; font-weight: 700; }
+.category-tabs { display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 0.5rem; }
+.category-tab { padding: 0.6rem 1.5rem; border-radius: 24px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-secondary); cursor: pointer; white-space: nowrap; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
+.category-tab.active { background: rgba(59, 130, 246, 0.1); border-color: var(--color-blue); color: var(--color-blue); }
+
+.category-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.25rem; }
+.premium-list-card { display: flex; gap: 1.25rem; padding: 1.25rem; border-radius: var(--radius-lg); align-items: stretch; border: 1px solid rgba(255,255,255,0.05); }
+.list-card-image { width: 90px; height: 90px; border-radius: 16px; overflow: hidden; flex-shrink: 0; background: var(--bg-surface-elevated); }
+.list-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.list-card-details { display: flex; flex-direction: column; justify-content: center; gap: 0.35rem; flex: 1; }
+.list-card-details h4 { font-size: 1.1rem; font-weight: 700; text-transform: capitalize; }
+.list-card-meta { font-size: 0.85rem; color: var(--text-secondary); }
+.intensity-bolts { display: flex; gap: 3px; margin: 0.25rem 0; }
+.bolt-active { color: var(--color-blue); min-width: 14px; }
+.bolt-inactive { color: rgba(255,255,255,0.1); }
+.last-time-badge { font-size: 0.75rem; background: var(--bg-surface); padding: 4px 8px; border-radius: 6px; color: var(--text-muted); width: fit-content; margin-top: auto; }
+.empty-state { padding: 2rem; text-align: center; color: var(--text-muted); background: var(--bg-surface); border-radius: var(--radius-md); font-size: 0.9rem; border: 1px dashed var(--border); }
+
+/* 6. Custom Workout Pills */
+.pill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+.filter-pill { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem; border-radius: var(--radius-md); background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-primary); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.filter-pill:hover { background: var(--bg-surface-elevated); }
+.icon-blue { color: var(--color-blue); }
+.icon-green { color: var(--color-green); }
+.icon-yellow { color: var(--color-yellow); }
+
+/* 7. Just For You Carousel */
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.text-link { background: none; border: none; color: var(--color-blue); font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; }
+
+.just-for-you-carousel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; }
+.small-premium-card { min-width: 250px; display: flex; gap: 1rem; align-items: center; padding: 1rem; scroll-snap-align: start; border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.05); }
+.small-card-image { width: 70px; height: 70px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+.small-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.small-card-content { display: flex; flex-direction: column; gap: 0.35rem; }
+.small-card-content h4 { font-size: 1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+.small-card-content p { font-size: 0.85rem; color: var(--text-secondary); }
+
+/* 8. Stretch & Warm Up */
+.stretch-carousel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; }
+.stretch-card { min-width: 260px; height: 160px; border-radius: var(--radius-xl); overflow: hidden; position: relative; scroll-snap-align: start; }
+.stretch-img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-xl); }
+.stretch-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 80%); display: flex; align-items: flex-end; padding: 1.25rem; }
+.stretch-overlay h4 { color: white; font-size: 1.1rem; font-weight: 700; width: 80%; line-height: 1.3; }
+
+/* 9. Popular Goals */
+.goal-tabs { display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 0.5rem; }
+.goal-tab { padding: 0.6rem 1.25rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-secondary); white-space: nowrap; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+.goal-tab.active { border-color: var(--color-blue); color: var(--color-blue); background: rgba(59, 130, 246, 0.1); }
+
+.popular-goals-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.25rem; }
+.popular-goal-card { display: flex; gap: 1.25rem; padding: 1rem; border-radius: var(--radius-lg); align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+.pg-image { width: 70px; height: 70px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+.pg-image img { width: 100%; height: 100%; object-fit: cover; }
+.pg-content { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
+.pg-content h4 { font-size: 1.05rem; font-weight: 700; }
+.pg-content p { font-size: 0.85rem; color: var(--text-secondary); }
+.pg-action { width: 32px; height: 32px; border-radius: 50%; background: var(--text-primary); color: var(--bg-base); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; }
+.pg-action:hover { transform: translateX(2px); }
+
+.explore-more-btn { margin-top: 2rem; }
+.others-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-radius: var(--radius-lg); background: var(--bg-surface-elevated); border: 1px solid var(--border); color: var(--text-primary); font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.others-btn:hover { background: var(--bg-surface); }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Subpage styling (MMA/Challenge) */
+.back-btn { background: transparent; border: none; color: var(--text-secondary); display: flex; align-items: center; gap: 0.5rem; cursor: pointer; width: fit-content; font-weight: 600; margin-bottom: 1rem; }
+.challenge-detail { padding-top: 1rem; }
+.challenge-hero { height: 280px; display: flex; flex-direction: column; justify-content: flex-end; gap: 1.25rem; padding: 2.5rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-md); margin-bottom: 2rem; }
+.challenge-hero h2 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin: 0; text-transform: uppercase; }
+.tags { display: flex; gap: 0.75rem; }
+.tag { padding: 0.35rem 1rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; }
+.tag.green { background: rgba(74, 222, 128, 0.2); color: var(--color-green); }
+.tag.orange { background: rgba(251, 146, 60, 0.2); color: var(--color-orange); }
+.days-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+.day-card { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); transition: transform 0.2s; }
+.day-card:not(.locked):hover { transform: translateY(-4px); border-color: var(--color-blue); }
+.day-card.locked { opacity: 0.5; filter: grayscale(1); }
+.day-info { display: flex; flex-direction: column; gap: 0.25rem; }
+.day-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; }
+.day-title { font-size: 1.1rem; font-weight: 700; margin: 0; }
+.start-session-btn { display: flex; align-items: center; gap: 0.5rem; background: var(--color-blue); color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
+
+.carousel { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; }
+.feature-card { min-width: 260px; display: flex; gap: 1.25rem; align-items: center; padding: 1.5rem; scroll-snap-align: start; border-radius: var(--radius-lg); }
+.card-info h4 { margin: 0 0 0.25rem 0; font-size: 1.1rem; font-weight: 700; }
+.card-info p { margin: 0 0 0.5rem 0; font-size: 0.85rem; color: var(--text-secondary); }
+.tag-outline { font-size: 0.75rem; border: 1px solid var(--text-muted); padding: 2px 8px; border-radius: 12px; color: var(--text-secondary); }
+
+@media (max-width: 768px) {
+  .pill-grid { grid-template-columns: repeat(2, 1fr); }
+  .premium-challenge-card { min-height: 220px; padding: 1.5rem; }
+  .pc-title { font-size: 1.5rem; }
+  .pc-image-wrapper { width: 60%; }
+}

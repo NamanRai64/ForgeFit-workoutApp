@@ -26,15 +26,16 @@ const CommunityHub: React.FC = () => {
         <div className="team-challenges-carousel hide-scrollbar">
           {teamChallengesData.map((challenge) => {
             const progressPercent = Math.min(100, Math.round((challenge.progress / challenge.target) * 100));
+            const bgStyle = challenge.id === 'tc1' ? 'linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.9)), url(https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80)' : 'linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(4, 120, 87, 0.9)), url(https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&q=80)';
             return (
-              <div key={challenge.id} className="team-challenge-card glass-card">
+              <div key={challenge.id} className="team-challenge-card glass-card" style={{ background: bgStyle, backgroundSize: 'cover', backgroundBlendMode: 'overlay', border: 'none' }}>
                 <div className="tc-header">
                   <div className="tc-icon-wrapper">
                     <Target size={20} className="icon-red" />
                   </div>
                   <span className="tc-days-left">{challenge.daysLeft} days left</span>
                 </div>
-                <h4 className="tc-title">{challenge.title}</h4>
+                <h4 className="tc-title" style={{ color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)', fontSize: '1.25rem', fontWeight: 800 }}>{challenge.title}</h4>
                 <div className="tc-stats">
                   <div className="tc-stat">
                     <span className="tc-label">Participants</span>
@@ -42,7 +43,7 @@ const CommunityHub: React.FC = () => {
                   </div>
                 </div>
                 <div className="tc-progress-container">
-                  <div className="tc-progress-labels">
+                  <div className="tc-progress-labels" style={{ color: 'rgba(255,255,255,0.9)' }}>
                     <span>{challenge.progress.toLocaleString()}</span>
                     <span>{challenge.target.toLocaleString()}</span>
                   </div>
@@ -166,16 +167,16 @@ const CommunityHub: React.FC = () => {
         .tc-title { font-size: 1.1rem; line-height: 1.2; }
         .tc-stats { display: flex; justify-content: space-between; }
         .tc-stat { display: flex; flex-direction: column; gap: 0.2rem; }
-        .tc-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
-        .tc-value { font-size: 0.95rem; font-weight: 700; }
+        .tc-label { font-size: 0.75rem; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px; }
+        .tc-value { font-size: 0.95rem; font-weight: 700; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
         
         .tc-progress-container { display: flex; flex-direction: column; gap: 0.4rem; }
         .tc-progress-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-stat); letter-spacing: 1px; }
         .tc-progress-bar-bg { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
         .tc-progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--color-red), var(--color-orange)); border-radius: 3px; transition: width 1s ease-out; }
         
-        .tc-join-btn { width: 100%; padding: 0.75rem; font-weight: 700; background: var(--bg-surface-elevated); color: var(--text-primary); border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s; }
-        .tc-join-btn:hover { background: var(--color-blue); border-color: var(--color-blue); }
+        .tc-join-btn { width: 100%; padding: 0.75rem; font-weight: 800; background: white; color: var(--bg-base); border-radius: 20px; border: none; transition: transform 0.2s; cursor: pointer; }
+        .tc-join-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
         /* 2. Leaderboard */
         .leaderboard-list { display: flex; flex-direction: column; padding: 0.5rem; gap: 0.25rem; }

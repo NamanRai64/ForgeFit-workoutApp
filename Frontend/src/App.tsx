@@ -3,6 +3,8 @@ import Sidebar from './components/Common/Sidebar';
 import Navbar from './components/Common/Navbar';
 import ProgressView from './components/Dashboard/ProgressView';
 import TrainingHub from './components/Training/TrainingHub';
+import WorkoutPlanView from './components/Training/WorkoutPlanView';
+import ChallengesView from './components/Training/ChallengesView';
 import SettingsView from './components/Settings/SettingsView';
 import CommunityHub from './components/Community/CommunityHub';
 import Onboarding from './components/Common/Onboarding';
@@ -11,6 +13,7 @@ import { BarChart3, Dumbbell, Trophy, Users, Settings } from 'lucide-react';
 function App() {
   const [currentView, setView] = useState('dashboard');
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [activePlanId, setActivePlanId] = useState<string | null>(null);
 
   // Apply theme on initial load if saved
   useEffect(() => {
@@ -25,11 +28,23 @@ function App() {
   }, []);
 
   const renderView = () => {
+    // Sub-view routing override
+    if (activePlanId) {
+      return (
+        <WorkoutPlanView 
+          planId={activePlanId} 
+          onBack={() => setActivePlanId(null)} 
+        />
+      );
+    }
+
     switch (currentView) {
       case 'dashboard':
         return <ProgressView />;
       case 'training':
-        return <TrainingHub />;
+        return <TrainingHub onOpenPlan={setActivePlanId} />;
+      case 'challenges':
+        return <ChallengesView />;
       case 'community':
         return <CommunityHub />;
       case 'settings':
